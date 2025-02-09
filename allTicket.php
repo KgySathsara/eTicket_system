@@ -111,22 +111,27 @@ $ticketResult = mysqli_query($conn, $ticketQuery);
 
         <!-- Ticket Table -->
         <table class="table table-hover mt-4">
-            <thead class="table-dark">
+            <thead class="table-dark ">
                 <tr>
-                    <th>Ticket ID</th>
-                    <th>Attend</th>
-                    <th>Member Name</th>
-                    <th>Mobile Number</th>
-                    <th>QR Number</th>
-                    <th>Ticket Type</th>
-                    <th>Updated At</th>
-                    <th>Actions</th>
+                    <th style="text-align: center;">#</th>
+                    <th style="background-color: #007bff; color: white; text-align: center;">Ticket ID</th>
+                    <th style="text-align: center;">Attend</th>
+                    <th style="text-align: center;">Member Name</th>
+                    <th style="text-align: center;">Mobile Number</th>
+                    <th style="text-align: center;">QR Number</th>
+                    <th style="text-align: center;">Ticket Type</th>
+                    <th style="text-align: center;">Updated At</th>
+                    <th style="text-align: center;">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = mysqli_fetch_assoc($ticketResult)) { ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($row['ticket_id']); ?></td>
+                <?php 
+                    $serial_no = 1; 
+                    while ($row = mysqli_fetch_assoc($ticketResult)) { 
+                    ?>
+                    <tr style="text-align: center;">
+                        <td><?php echo $serial_no++; ?></td>
+                        <td style="text-align: center;"><?php echo htmlspecialchars($row['ticket_id']); ?></td>
                         <td>
                             <?php echo ($row['is_scan'] == 1) ? "<span class='badge badge-success'>Yes</span>" : "<span class='badge badge-danger'>No</span>"; ?>
                         </td>
@@ -136,9 +141,11 @@ $ticketResult = mysqli_query($conn, $ticketQuery);
                         <td><?php echo htmlspecialchars($row['ticket_type']); ?></td>
                         <td><?php echo htmlspecialchars($row['updated_at']); ?></td>
                         <td>
-                            <a href="<?php echo $row['ticket_url']; ?>" 
-                               class="btn btn-success btn-sm" >
-                               <i class="fa fa-download"></i>
+                            <a href="<?php echo $row['ticket_url']; ?>" class="btn btn-success btn-sm" target="_blank">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a href="download_ticket.php?file=<?php echo basename($row['ticket_url']); ?>" class="btn btn-primary btn-sm">
+                                <i class="fa fa-download"></i>
                             </a>
                             <a href="edit_ticket.php?id=<?php echo $row['ticket_id']; ?>" 
                                class="btn btn-warning btn-sm" >

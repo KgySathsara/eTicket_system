@@ -133,9 +133,10 @@ function getTickets($member_id, $conn) {
 <!-- Main Content -->
 <div class="main-content">
     <div class="header">
-        <h3>Welcome, <?php echo $_SESSION['username']; ?>!</h3>
+        <h3> Welcome, <?php echo $_SESSION['username']; ?>!</h3>
         <a href="logout.php" class="btn btn-danger">Logout</a>
     </div>
+
     <div class="dashboard-container mt-2">
         <h2><i class='fa fa-home'></i> Member Dashboard</h2>
 
@@ -167,18 +168,22 @@ function getTickets($member_id, $conn) {
         <table class="table table-hover mt-4">
             <thead class="table-dark">
                 <tr>
-                    <th>Member No</th>
-                    <th>Member Name</th>
-                    <th>Mobile Number</th>
-                    <th>Tickets</th>
-                    <th>Action</th>
+                    <th style="text-align: center;">#</th>
+                    <th style="text-align: center;">Member No</th>
+                    <th style="text-align: center;">Member Name</th>
+                    <th style="text-align: center;">Mobile Number</th>
+                    <th style="text-align: center;">Tickets</th>
+                    <th style="text-align: center;">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = mysqli_fetch_assoc($memberResult)) { 
+                <?php
+                    $serial_no = 1; 
+                    while ($row = mysqli_fetch_assoc($memberResult)) { 
                     $tickets = getTickets($row['member_id'], $conn);
                 ?>
-                    <tr>
+                    <tr style="text-align: center;">
+                        <td><?php echo $serial_no++; ?></td>
                         <td><?php echo htmlspecialchars($row['member_id']); ?></td>
                         <td><?php echo htmlspecialchars($row['member_name']); ?></td>
                         <td><?php echo htmlspecialchars($row['member_mobile_number']); ?></td>
